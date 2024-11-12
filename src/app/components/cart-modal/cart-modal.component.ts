@@ -12,7 +12,7 @@ export class CartModalComponent {
 
   @Input() items: CartItem[] = [];
 
-  @Input() total: number = 0;
+  // @Input() total: number = 0;
 
   @Output() idProductEventEmitter: EventEmitter<number> = new EventEmitter();
 
