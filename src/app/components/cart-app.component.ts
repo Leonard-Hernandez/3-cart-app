@@ -4,12 +4,11 @@ import { Product } from '../models/product';
 import { CatalogComponent } from "./catalog/catalog.component";
 import { CartItem } from '../models/cartItem';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CartModalComponent } from './cart-modal/cart-modal.component';
 
 @Component({
   selector: 'cart-app',
   standalone: true,
-  imports: [CatalogComponent, CartModalComponent, NavbarComponent],
+  imports: [CatalogComponent, NavbarComponent],
   templateUrl: './cart-app.component.html'
 })
 export class CartAppComponent implements OnInit {
@@ -18,9 +17,7 @@ export class CartAppComponent implements OnInit {
 
   items: CartItem[] = [];
 
-  // total: number = 0;
-
-  showCart: boolean = false;
+  total: number = 0;
 
   constructor(private service:ProductService){}
 
@@ -50,8 +47,8 @@ export class CartAppComponent implements OnInit {
     } else{
       this.items = [... this.items, {product: {... product}, quantity: 1}]
     }
-    //this.calculateTotal()
-    //this.saveSession();
+    this.calculateTotal()
+    this.saveSession();
   }
 
   onDeleteCart(id:number):void {
@@ -59,20 +56,15 @@ export class CartAppComponent implements OnInit {
     if(this.items.length == 0){
       sessionStorage.removeItem('cart')
     }
-    //this.calculateTotal();
-    //this.saveSession();
+    this.calculateTotal();
+    this.saveSession();
   }
 
-  // calculateTotal(): void{
-  //   this.total = this.items.reduce( (accumulator, item) => accumulator + (item.quantity * item.product.price),0)
-  // }
-
-  // saveSession(): void{
-  //   sessionStorage.setItem('cart', JSON.stringify(this.items))
-  // }
-
-  openCart(): void{
-    this.showCart = !this.showCart;
+  calculateTotal(): void{
+    this.total = this.items.reduce( (accumulator, item) => accumulator + (item.quantity * item.product.price),0)
   }
 
+  saveSession(): void{
+    sessionStorage.setItem('cart', JSON.stringify(this.items))
+  }
 }
