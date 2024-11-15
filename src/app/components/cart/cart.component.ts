@@ -21,6 +21,7 @@ export class CartComponent {
 
   constructor(private router: Router){
     this.items = this.router.getCurrentNavigation()?.extras.state!['items'];
+    this.total = this.router.getCurrentNavigation()?.extras.state!['total'];
   }
 
   onDeleteCart(id: number) {
