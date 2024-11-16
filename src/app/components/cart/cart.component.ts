@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { CartItem } from '../../models/cartItem';
 import { Router } from '@angular/router';
+import { SharingDataService } from '../../services/sharing-data.service';
 
 @Component({
   selector: 'cart',
@@ -17,14 +18,13 @@ export class CartComponent {
 
   total: number = 0;
 
-  idProductEventEmitter: EventEmitter<number> = new EventEmitter();
 
-  constructor(private router: Router){
+  constructor(private router: Router, private sharingDataService: SharingDataService){
     this.items = this.router.getCurrentNavigation()?.extras.state!['items'];
     this.total = this.router.getCurrentNavigation()?.extras.state!['total'];
   }
 
   onDeleteCart(id: number) {
-    this.idProductEventEmitter.emit(id);
+    this.sharingDataService.idProductEventEmitter.emit(id);
   }
 }
