@@ -15,6 +15,4 @@ export class NavbarComponent {
 
   @Input() total: number = 0;
 
-  @Input() products: Product[] = [];
-
 }
